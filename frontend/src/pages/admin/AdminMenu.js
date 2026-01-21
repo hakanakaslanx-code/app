@@ -417,7 +417,13 @@ const AdminMenu = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCategoryModal(false)}>Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowCategoryModal(false)}
+              data-testid="cancel-category-btn"
+            >
+              Cancel
+            </Button>
             <Button onClick={saveCategoryHandler} className="bg-orange-500 hover:bg-orange-600" data-testid="save-category-btn">
               <Save className="w-4 h-4 mr-2" />
               Save
@@ -444,7 +450,13 @@ const AdminMenu = () => {
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map(cat => (
-                    <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
+                    <SelectItem
+                      key={cat.id}
+                      value={cat.id}
+                      data-testid={`item-category-${cat.id}`}
+                    >
+                      {cat.icon} {cat.name}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -530,7 +542,13 @@ const AdminMenu = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowItemModal(false)}>Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowItemModal(false)}
+              data-testid="cancel-item-btn"
+            >
+              Cancel
+            </Button>
             <Button onClick={saveItemHandler} className="bg-orange-500 hover:bg-orange-600" data-testid="save-item-btn">
               <Save className="w-4 h-4 mr-2" />
               Save

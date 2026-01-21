@@ -235,7 +235,13 @@ const AdminTables = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowModal(false)}
+              data-testid="cancel-table-btn"
+            >
+              Cancel
+            </Button>
             <Button onClick={saveTable} className="bg-orange-500 hover:bg-orange-600" data-testid="save-table-btn">
               <Save className="w-4 h-4 mr-2" />
               Save
