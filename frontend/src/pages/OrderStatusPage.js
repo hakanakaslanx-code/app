@@ -106,7 +106,11 @@ const OrderStatusPage = () => {
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Order not found</h2>
           <p className="text-gray-500 mb-4">The order you're looking for doesn't exist.</p>
-          <Button onClick={() => navigate('/order')} className="bg-orange-500 hover:bg-orange-600">
+          <Button
+            onClick={() => navigate('/order')}
+            className="bg-orange-500 hover:bg-orange-600"
+            data-testid="back-to-menu-btn"
+          >
             Back to Menu
           </Button>
         </div>

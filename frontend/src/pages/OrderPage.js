@@ -34,6 +34,12 @@ const OrderPage = () => {
   const [notes, setNotes] = useState('');
   const [selectedModifiers, setSelectedModifiers] = useState([]);
 
+  const toTestId = (value) =>
+    value
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -204,6 +210,7 @@ const OrderPage = () => {
               <button
                 onClick={() => setSearchQuery('')}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-1"
+                data-testid="search-clear-btn"
               >
                 <X className="w-4 h-4 text-gray-400" />
               </button>
@@ -356,6 +363,7 @@ const OrderPage = () => {
                             <label
                               key={optIdx}
                               className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors"
+                              data-testid={`modifier-option-${toTestId(modifier.name)}-${toTestId(option.label)}`}
                             >
                               <div className="flex items-center gap-3">
                                 <Checkbox
@@ -363,6 +371,7 @@ const OrderPage = () => {
                                     m => m.modifierName === modifier.name && m.label === option.label
                                   )}
                                   onCheckedChange={() => handleModifierToggle(modifier, option)}
+                                  data-testid={`modifier-checkbox-${toTestId(modifier.name)}-${toTestId(option.label)}`}
                                 />
                                 <span className="text-gray-700">{option.label}</span>
                               </div>
