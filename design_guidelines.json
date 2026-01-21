@@ -1,0 +1,167 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "E1 - The Anti-AI Designer",
+      "tone": "Modern, Appetizing, Efficient, Real-time",
+      "core_principles": [
+        "Mobile-First Obsession: The customer is on a phone. Touch targets must be huge (44px+).",
+        "Appetite Appeal: Colors and images must trigger hunger. No sterile blue/grey for food.",
+        "Speed & Clarity: Ordering must be frictionless. Admin updates must be instant.",
+        "Visual Hierarchy: Price and 'Add' button are kings."
+      ]
+    },
+    "typography": {
+      "font_family": {
+        "headings": "Manrope, sans-serif",
+        "body": "Inter, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "usage": {
+        "headings": "Use Manrope for all category titles, product names, and modal headers. Font weights: 600/700.",
+        "body": "Use Inter for descriptions, prices, and UI elements. Font weights: 400/500.",
+        "admin_data": "Use JetBrains Mono for order IDs, timestamps, and tabular data."
+      }
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "name": "Crave Orange",
+          "hex": "#F97316",
+          "tailwind": "orange-500",
+          "usage": "Primary CTAs (Add to Cart, Checkout), Price highlights, Active states."
+        },
+        "secondary": {
+          "name": "Fresh Green",
+          "hex": "#22C55E",
+          "tailwind": "green-500",
+          "usage": "Success states, 'Veg' indicators, 'Order Ready' status."
+        },
+        "accent": {
+          "name": "Charcoal",
+          "hex": "#1F2937",
+          "tailwind": "gray-800",
+          "usage": "Headings, Primary Text, Admin Sidebar."
+        },
+        "background": {
+          "light": "#FFFFFF",
+          "subtle": "#F9FAFB",
+          "dark": "#0F172A"
+        },
+        "status": {
+          "pending": "#EAB308",
+          "cooking": "#F97316",
+          "ready": "#22C55E",
+          "delivered": "#64748B"
+        }
+      },
+      "theme_strategy": {
+        "customer_app": "Light Mode. Clean white backgrounds to make food photos pop. Subtle gray borders.",
+        "admin_dashboard": "Hybrid. Light mode for management (Menu/Tables), but High-Contrast Dark Mode option for Kitchen Display System (KDS) to reduce eye strain."
+      }
+    },
+    "layout": {
+      "spacing": {
+        "container_padding": "p-4 md:p-6 lg:p-8",
+        "section_gap": "gap-6 md:gap-8",
+        "touch_target": "min-h-[44px] min-w-[44px]"
+      },
+      "grids": {
+        "menu_grid": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4",
+        "admin_dashboard": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      },
+      "structure": {
+        "mobile_nav": "Sticky top bar for Table # + Search. Sticky bottom bar for Cart Summary.",
+        "category_nav": "Horizontal scrollable pill list (overflow-x-auto) with snap-scrolling.",
+        "admin_sidebar": "Fixed sidebar on desktop, Drawer on mobile."
+      }
+    },
+    "components": {
+      "buttons": {
+        "primary": "bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all active:scale-95",
+        "secondary": "bg-white border border-gray-200 text-gray-900 hover:bg-gray-50 rounded-full font-medium",
+        "icon": "p-2 rounded-full hover:bg-gray-100 transition-colors"
+      },
+      "cards": {
+        "product": "bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col",
+        "order_ticket": "bg-white dark:bg-gray-800 rounded-lg border-l-4 border-l-orange-500 shadow-sm p-4"
+      },
+      "inputs": {
+        "search": "bg-gray-50 border-none rounded-full px-4 py-2 focus:ring-2 focus:ring-orange-500/20"
+      },
+      "modals": {
+        "item_detail": "Use Shadcn Dialog/Drawer. Full screen on mobile, centered modal on desktop. Large hero image at top."
+      }
+    },
+    "visual_enhancers": {
+      "shadows": "Soft, diffuse shadows (shadow-lg) for floating elements like the Cart button.",
+      "borders": "1px solid gray-100 for separation. No heavy borders.",
+      "radius": "rounded-xl for cards, rounded-full for buttons.",
+      "glassmorphism": "Use backdrop-blur-md bg-white/80 for sticky headers and cart bars."
+    },
+    "motion": {
+      "transitions": "transition-all duration-200 ease-out",
+      "interactions": "Active scale down (active:scale-95) on all buttons.",
+      "loading": "Skeleton loaders for menu items. Pulse effect for live status updates."
+    },
+    "accessibility": {
+      "contrast": "Ensure text is gray-900 on white. Orange buttons must have white text.",
+      "focus": "Visible focus rings (ring-2 ring-orange-500) for keyboard navigation.",
+      "aria": "Use aria-labels for icon-only buttons (like 'Add to Cart')."
+    }
+  },
+  "assets": {
+    "images": {
+      "burgers": {
+        "url": "https://images.unsplash.com/photo-1627378378955-a3f4e406c5de?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxnb3VybWV0JTIwYnVyZ2VyJTIwcmVzdGF1cmFudHxlbnwwfHx8fDE3Njg5NjUwNDh8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Gourmet Burger with Cheese and Lettuce",
+        "category": "Burgers"
+      },
+      "sandwiches": {
+        "url": "https://images.unsplash.com/photo-1757961048411-73703e333d25?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxjbHViJTIwc2FuZHdpY2glMjBwbGF0ZXxlbnwwfHx8fDE3Njg5NjUwNDl8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Club Sandwich with Fries",
+        "category": "Sandwiches"
+      },
+      "coffee": {
+        "url": "https://images.unsplash.com/photo-1630040995437-80b01c5dd52d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwxfHxsYXR0ZSUyMGFydCUyMGNvZmZlZSUyMGN1cHxlbnwwfHx8fDE3Njg4Nzg0ODB8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Latte Art Coffee",
+        "category": "Coffee"
+      },
+      "drinks": {
+        "url": "https://images.unsplash.com/photo-1767627942883-0a6443183f66?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxyZWZyZXNoaW5nJTIwaWNlZCUyMGRyaW5rJTIwY29ja3RhaWx8ZW58MHx8fHwxNzY4OTY1MDUyfDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Refreshing Iced Drink",
+        "category": "Drinks"
+      },
+      "desserts": {
+        "url": "https://images.unsplash.com/photo-1586985289906-406988974504?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBkZXNzZXJ0JTIwY2FrZSUyMHBsYXRlfGVufDB8fHx8MTc2ODk2NTA1NHww&ixlib=rb-4.1.0&q=85",
+        "alt": "Chocolate Cake Dessert",
+        "category": "Desserts"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "sets": {
+        "menu": ["Utensils", "Coffee", "Beer", "CakeSlice", "Sandwich"],
+        "ui": ["ShoppingCart", "Search", "ChevronLeft", "Plus", "Minus", "X", "Check"],
+        "admin": ["LayoutDashboard", "ClipboardList", "Settings", "Users", "ChefHat"]
+      }
+    }
+  },
+  "implementation_guide": {
+    "instructions_to_main_agent": [
+      "1. SETUP: Ensure 'lucide-react' and 'framer-motion' are installed.",
+      "2. THEME: Update 'tailwind.config.js' to include the 'Crave Orange' (#F97316) as the primary color.",
+      "3. COMPONENTS: Use 'shadcn/ui' for the base, but HEAVILY customize the styling to match the 'Modern Fresh' theme. Don't just use the default look.",
+      "4. MOBILE: Always test layouts on mobile width. The 'Add to Cart' button must be sticky at the bottom on mobile product pages.",
+      "5. IMAGES: Use the provided Unsplash URLs for the seed data/mock data.",
+      "6. ADMIN: Create a distinct look for the Admin section (denser, more data-heavy) compared to the Customer section (airy, visual)."
+    ],
+    "universal_guidelines": [
+      "Do not use generic centered layouts.",
+      "Create depth through layered design elements.",
+      "Use glass-morphism effects for sticky headers.",
+      "Every interaction needs micro-animations.",
+      "Use 2-3x more spacing than feels comfortable.",
+      "All interactive elements MUST include 'data-testid'."
+    ]
+  }
+}
