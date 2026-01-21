@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local API Test</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: #f5f7fb;
+        color: #1f2937;
+      }
+      body {
+        margin: 0;
+        padding: 32px;
+      }
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+        padding: 28px;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 28px;
+      }
+      p {
+        margin-top: 0;
+        color: #475569;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #cbd5f5;
+        margin-bottom: 14px;
+        font-size: 14px;
+      }
+      button {
+        background: #2563eb;
+        color: #ffffff;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-right: 8px;
+      }
+      button.secondary {
+        background: #0f172a;
+      }
+      .status {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 10px;
+        background: #f1f5f9;
+        font-family: "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        white-space: pre-wrap;
+      }
+      .hint {
+        background: #e2e8f0;
+        padding: 12px;
+        border-radius: 10px;
+        margin-top: 18px;
+        font-size: 14px;
+      }
+      .hint code {
+        background: #ffffff;
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Local API Test</h1>
+      <p>Use this page to quickly test the admin login + seed endpoints during local development.</p>
+
+      <label for="apiBase">API Base URL</label>
+      <input id="apiBase" value="http://localhost:8000" />
+
+      <label for="email">Admin Email</label>
+      <input id="email" value="demo.admin@example.com" />
+
+      <label for="password">Admin Password</label>
+      <input id="password" type="password" value="DemoAdmin123!" />
+
+      <button id="loginBtn">Login</button>
+      <button id="seedBtn" class="secondary" disabled>Seed Database</button>
+
+      <div class="status" id="status">Status output will appear here.</div>
+
+      <div class="hint">
+        <strong>Demo account</strong>: created automatically when the API starts (if enabled).
+        You can override it via environment variables:
+        <code>DEMO_ADMIN_EMAIL</code>, <code>DEMO_ADMIN_PASSWORD</code>, and
+        <code>ENABLE_DEMO_ADMIN=false</code>.
+      </div>
+    </div>
+
+    <script>
+      const statusEl = document.getElementById("status");
+      const loginBtn = document.getElementById("loginBtn");
+      const seedBtn = document.getElementById("seedBtn");
+      let authToken = "";
+
+      const setStatus = (message) => {
+        statusEl.textContent = message;
+      };
+
+      loginBtn.addEventListener("click", async () => {
+        const base = document.getElementById("apiBase").value.replace(/\/$/, "");
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        setStatus("Logging in...");
+
+        try {
+          const response = await fetch(`${base}/api/admin/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          });
+
+          if (!response.ok) {
+            const error = await response.json();
+            setStatus(`Login failed: ${response.status} ${error.detail || "Unknown error"}`);
+            return;
+          }
+
+          const data = await response.json();
+          authToken = data.token;
+          seedBtn.disabled = false;
+          setStatus(`Login success.\nToken: ${data.token}`);
+        } catch (error) {
+          setStatus(`Login error: ${error.message}`);
+        }
+      });
+
+      seedBtn.addEventListener("click", async () => {
+        const base = document.getElementById("apiBase").value.replace(/\/$/, "");
+        if (!authToken) {
+          setStatus("Login first to get a token.");
+          return;
+        }
+
+        setStatus("Seeding database...");
+
+        try {
+          const response = await fetch(`${base}/api/admin/seed`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+
+          if (!response.ok) {
+            const error = await response.json();
+            setStatus(`Seed failed: ${response.status} ${error.detail || "Unknown error"}`);
+            return;
+          }
+
+          const data = await response.json();
+          setStatus(`Seed complete.\n${JSON.stringify(data, null, 2)}`);
+        } catch (error) {
+          setStatus(`Seed error: ${error.message}`);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -26,6 +26,9 @@ db = client[os.environ['DB_NAME']]
 # JWT Config
 JWT_SECRET = os.environ.get('JWT_SECRET', 'restaurant-secret-key-change-in-production')
 JWT_ALGORITHM = 'HS256'
+DEMO_ADMIN_EMAIL = os.environ.get('DEMO_ADMIN_EMAIL', 'demo.admin@example.com')
+DEMO_ADMIN_PASSWORD = os.environ.get('DEMO_ADMIN_PASSWORD', 'DemoAdmin123!')
+ENABLE_DEMO_ADMIN = os.environ.get('ENABLE_DEMO_ADMIN', 'true').lower() == 'true'
 
 # Create the main app
 app = FastAPI()
@@ -637,6 +640,22 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+@app.on_event("startup")
+async def ensure_demo_admin():
+    if not ENABLE_DEMO_ADMIN:
+        return
+
+    existing = await db.admin_users.find_one({"email": DEMO_ADMIN_EMAIL})
+    if existing:
+        return
+
+    demo_user = AdminUserModel(
+        email=DEMO_ADMIN_EMAIL,
+        passwordHash=hash_password(DEMO_ADMIN_PASSWORD)
+    )
+    await db.admin_users.insert_one(demo_user.model_dump())
+    logger.info("Created demo admin user: %s", DEMO_ADMIN_EMAIL)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
